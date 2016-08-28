@@ -1,20 +1,11 @@
-var roleHarvester = require('role.harvester');
-var roleUpgrader = require('role.upgrader');
-var roleBuilder = require('role.builder');
-var spawn = require('world.spawn');
+var roomController = require('roomController');
 
 module.exports.loop = function () {
 
+    var spawns = Game.spawns;
 
-    spawn.spawn(Game.spawns['Spawn1']);
-
-    for(var name in Game.creeps) {
-        var creep = Game.creeps[name];
-        if(creep.memory.role == 'harvester') {
-            roleHarvester.run(creep);
-        }
-        if(creep.memory.role == 'upgrader') {
-            roleUpgrader.run(creep);
-        }
+    for(var key in spawns){
+        var spawn = spawns[key];
+        roomController.run(spawn);
     }
-}
+};
